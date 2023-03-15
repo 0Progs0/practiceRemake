@@ -2,21 +2,34 @@
 @{
     ViewData["Title"] = "Home Page";
 }
-<div class="text-center">
-    <form method="post" asp-controller="Home" asp-action="UserFind">
-        <input type="search" name="find"/>
-        <input type="submit" value="Найти" />
+<div class="content">
+    <div class="title">Список пользователей</div>
+    <form class="search" method="post" asp-controller="Home" asp-action="UserFind">
+        <input class="input" type="search" name="FindId"/>
+        <input  class="btn" type="submit" value="Найти" />
     </form>
-    <a asp-controller="Home" asp-action="UserEdit">Добавить пользователя</a>
-
-    <div class="text-center">
-            <div>
-                @Model.Id @Model.Name
-                <a asp-controller="Home" asp-action="UserEdit" asp-route-id="@Model.Id">Редактировать</a>
-                <form method="post" asp-controller="Home" asp-action="UserDelete">
-                    <input type="hidden" value="@Model.Id" name="Id"/>
-                    <input type="submit" value="Удалить"/>
-                </form>
-            </div>
+    <a class="btn add-btn" asp-controller="Home" asp-action="UserEdit">Добавить пользователя</a>
 </div>
-</div>
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Имя</th>
+        <th>Фамилия</th>
+        <th>Почта</th>
+        <th>Статус</th>
+        <th></th>
+        <th></th>
+    </tr>
+    <tr>
+        <td>@Model.Id</td>
+        <td>@Model.Name</td>
+        <td>@Model.Surname</td>
+        <td>@Model.Email</td>
+        <td>@Model.Status</td>
+            <td><a class="btn" asp-controller="Home" asp-action="UserEdit" asp-route-id="@Model.Id">Редактировать</a></td>
+        <td><form method="post" asp-controller="Home" asp-action="UserDelete">
+            <input type="hidden" value="@Model.Id" name="Id"/>
+            <input class="btn" type="submit" value="Удалить"/>
+        </form></td>
+    </tr>
+</table>
