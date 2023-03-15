@@ -20,8 +20,10 @@
         <th></th>
         <th></th>
     </tr>
-    <tr>
-        <td>@Model.Id</td>
+    @if (Model != null)
+    {
+        <tr>
+            <td>@Model.Id</td>
         <td>@Model.Name</td>
         <td>@Model.Surname</td>
         <td>@Model.Email</td>
@@ -32,4 +34,5 @@
             <input class="btn" type="submit" value="Удалить"/>
         </form></td>
     </tr>
+    }
 </table>

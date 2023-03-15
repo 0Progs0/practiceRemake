@@ -21,7 +21,7 @@ namespace NewTryMVC.Repositories
 
         public User GetUserById (int id) // Поиск по id
         {
-            return context.Users.Single(x=> x.Id == id);
+                return context.Users.SingleOrDefault(x => x.Id == id); 
         }
 
         public int SaveUser(User entity) // Добавление или редактирование существующего пользователя
