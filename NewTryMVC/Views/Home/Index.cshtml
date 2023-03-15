@@ -2,23 +2,39 @@
 @{
     ViewData["Title"] = "Home Page";
 }
-<div class="text-center">
-    <form method="post" asp-controller="Home" asp-action="UserFind">
-        <input type="search" name="FindId"/>
-        <input type="submit" value="Найти" />
+
+
+<div class="content">
+    <div class="title">Список пользователей</div>
+    <form class="search" method="post" asp-controller="Home" asp-action="UserFind">
+        <input class="input" type="search" name="FindId"/>
+        <input  class="btn" type="submit" value="Найти" />
     </form>
-    <a asp-controller="Home" asp-action="UserEdit">Добавить пользователя</a>
+    <a class="btn add-btn" asp-controller="Home" asp-action="UserEdit">Добавить пользователя</a>
 </div>
-<div class="text-center">
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Имя</th>
+        <th>Фамилия</th>
+        <th>Почта</th>
+        <th>Статус</th>
+        <th></th>
+        <th></th>
+    </tr>
     @foreach (User entity in Model)
     {
-        <div>
-             @entity.Id @entity.Name
-            <a asp-controller="Home" asp-action="UserEdit" asp-route-id="@entity.Id">Редактировать</a>
-            <form method="post" asp-controller="Home" asp-action="UserDelete">
+        <tr>
+            <td>@entity.Id</td>
+            <td>@entity.Name</td>
+            <td>@entity.Surname</td>
+            <td>@entity.Email</td>
+            <td>@entity.Status</td>
+                <td><a class="btn" asp-controller="Home" asp-action="UserEdit" asp-route-id="@entity.Id">Редактировать</a></td>
+            <td><form method="post" asp-controller="Home" asp-action="UserDelete">
                 <input type="hidden" value="@entity.Id" name="Id"/>
-                <input type="submit" value="Удалить"/>
-            </form>
-        </div>
+                <input class="btn" type="submit" value="Удалить"/>
+            </form></td>
+        </tr>
     }
-</div>
+</table>
