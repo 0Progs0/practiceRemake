@@ -4,7 +4,7 @@
 }
 <div class="content">
     <div class="title">Список пользователей</div>
-    <form class="search" method="post" asp-controller="Home" asp-action="UserFind">
+    <form class="search" method="get" asp-controller="Home" asp-action="UserFind">
         <input class="input" type="search" name="FindId"/>
         <input  class="btn" type="submit" value="Найти" />
     </form>
@@ -22,17 +22,17 @@
     </tr>
     @if (Model != null)
     {
-        <tr>
-            <td>@Model.Id</td>
-        <td>@Model.Name</td>
-        <td>@Model.Surname</td>
-        <td>@Model.Email</td>
-        <td>@Model.Status</td>
-            <td><a class="btn" asp-controller="Home" asp-action="UserEdit" asp-route-id="@Model.Id">Редактировать</a></td>
-        <td><form method="post" asp-controller="Home" asp-action="UserDelete">
-            <input type="hidden" value="@Model.Id" name="Id"/>
-            <input class="btn" type="submit" value="Удалить"/>
-        </form></td>
-    </tr>
+            <tr>
+                <td>@Model.Id</td>
+                    <td>@Model.Name</td>
+                    <td>@Model.Surname</td>
+                    <td>@Model.Email</td>
+                    <td>@Model.Status</td>
+                        <td><a class="btn" asp-controller="Home" asp-action="Modify" asp-route-id="@Model.Id">Редактировать</a></td>
+                <td><form method="post" asp-controller="Home" asp-action="UserDelete">
+                        <input type="hidden" value="@Model.Id" name="Id"/>
+                    <input class="btn" type="submit" value="Удалить"/>
+                </form></td>
+            </tr>
     }
 </table>

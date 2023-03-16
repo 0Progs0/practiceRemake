@@ -1,13 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using NewTryMVC.Models;
 using NewTryMVC.Repositories;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Xml.Schema;
 
 namespace NewTryMVC.Controllers
 {
@@ -25,18 +19,37 @@ namespace NewTryMVC.Controllers
             return View(model);
         }
 
-        public IActionResult UserEdit(int id)
+        
+       
+        public IActionResult UserCreate()
         {
-            User model = id == default ? new User() : usersRepository.GetUserById(id);
+                User model = new User();
+                return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult UserCreate(User model)
+        {
+            if (ModelState.IsValid)
+            {
+                usersRepository.CreateUser(model);
+                return RedirectToAction("Index");
+            }
+            return View(model);
+        }
+
+        public IActionResult UserModify(int id)
+        {
+            User model = usersRepository.GetUserById(id);
             return View(model);
         }
 
         [HttpPost]
-        public IActionResult UserEdit (User model)
+        public IActionResult UserModify(User model)
         {
             if (ModelState.IsValid)
             {
-                usersRepository.SaveUser(model);
+                usersRepository.ModifyUser(model);
                 return RedirectToAction("Index");
             }
             return View(model);
@@ -48,6 +61,14 @@ namespace NewTryMVC.Controllers
             var model = usersRepository.GetUserById(FindId);
             return View(model);
         }
+
+        //[HttpGet]
+        //public IActionResult UserFindByName(string name)
+        //{
+        //    var model = usersRepository.GetUserByName(name);
+        //    return View(model);
+        //}
+
 
         [HttpPost]
         public IActionResult UserDelete(int id)
