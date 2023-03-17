@@ -26,7 +26,7 @@ namespace NewTryMVC.Repositories
 
         public IQueryable<User> GetUserByName(string user_name)
         {
-            return context.Users.Where(x => EF.Functions.Like(x.Name, user_name));
+            return context.Users.Where(x => EF.Functions.Like(x.Name, $"{user_name}%"));
         }
 
         public int SaveUser(User entity)

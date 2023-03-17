@@ -7,11 +7,11 @@ namespace NewTryMVC.Models
         [Required]
         public int Id { get; set; }
         [Required(ErrorMessage = "Не указано имя")]
-        [RegularExpression(@"[A-Za-zА-Яа-я]", ErrorMessage = "Имя содержит недопустимые символы")]
+        [RegularExpression(@"[A-Za-z]+|\p{IsCyrillic}+", ErrorMessage = "Имя содержит недопустимые символы")]
         [Display (Name = "Имя")]
         public string Name { get; set; }
         [Required(ErrorMessage = "Не указана фамилия")]
-        [RegularExpression(@"[A-Za-zА-Яа-я]", ErrorMessage = "Фамилия содержит недопустимые символы")]
+        [RegularExpression(@"[A-Za-z]+|\p{IsCyrillic}+", ErrorMessage = "Имя содержит недопустимые символы")]
         [Display(Name = "Фамилия")]
         public string Surname{ get; set; }
         [Required(ErrorMessage = "Не указан адрес электронной почты")]

@@ -55,19 +55,19 @@ namespace NewTryMVC.Controllers
             return View(model);
         }
 
-        [HttpGet]
-        public IActionResult UserFind(int FindId)
-        {
-            var model = usersRepository.GetUserById(FindId);
-            return View(model);
-        }
-
-        //[HttpGet]
-        //public IActionResult UserFindByName(string name)
+        //[HttpPost]
+        //public IActionResult UserFind(int FindId)
         //{
-        //    var model = usersRepository.GetUserByName(name);
+        //    var model = usersRepository.GetUserById(FindId);
         //    return View(model);
         //}
+
+        [HttpPost]
+        public IActionResult UserFindByName(string name)
+        {
+            var model = usersRepository.GetUserByName(name);
+            return View(model);
+        }
 
 
         [HttpPost]

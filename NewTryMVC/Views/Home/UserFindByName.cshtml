@@ -1,7 +1,40 @@
-﻿
+﻿@model IQueryable<NewTryMVC.Models.User>
 @{
-    ViewData["Title"] = "UserFindByName";
+    ViewData["Title"] = "Home Page";
 }
 
-<h1>UserFindByName</h1>
 
+<div class="content">
+    <div class="title">Список пользователей</div>
+    <form class="search" method="post" asp-controller="Home" asp-action="UserFindByName">
+        <input class="input" type="search" name="name"/>
+        <input  class="btn" type="submit" value="Найти" />
+    </form>
+    <a class="btn add-btn" asp-controller="Home" asp-action="UserCreate">Добавить пользователя</a>
+</div>
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Имя</th>
+        <th>Фамилия</th>
+        <th>Почта</th>
+        <th>Статус</th>
+        <th></th>
+        <th></th>
+    </tr>
+    @foreach (User entity in Model)
+    {
+                <tr>
+                    <td>@entity.Id</td>
+                    <td>@entity.Name</td>
+                    <td>@entity.Surname</td>
+                    <td>@entity.Email</td>
+                    <td>@entity.Status</td>
+                        <td><a class="btn" asp-controller="Home" asp-action="UserModify" asp-route-id="@entity.Id">Редактировать</a></td>
+                    <td><form method="post" asp-controller="Home" asp-action="UserDelete">
+                        <input type="hidden" value="@entity.Id" name="Id"/>
+                        <input class="btn" type="submit" value="Удалить"/>
+                    </form></td>
+                </tr>
+    }
+</table>

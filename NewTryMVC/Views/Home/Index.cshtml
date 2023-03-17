@@ -6,8 +6,8 @@
 
 <div class="content">
     <div class="title">Список пользователей</div>
-    <form class="search" method="post" asp-controller="Home" asp-action="UserFind">
-        <input class="input" type="search" name="FindId"/>
+    <form class="search" method="post" asp-controller="Home" asp-action="UserFindByName">
+        <input class="input" type="search" name="name"/>
         <input  class="btn" type="submit" value="Найти" />
     </form>
     <a class="btn add-btn" asp-controller="Home" asp-action="UserCreate">Добавить пользователя</a>
