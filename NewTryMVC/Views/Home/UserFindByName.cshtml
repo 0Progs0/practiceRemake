@@ -24,17 +24,17 @@
     </tr>
     @foreach (User entity in Model)
     {
-            <tr>
-                <td>@entity.Id</td>
-                <td>@entity.Name</td>
-                <td>@entity.Surname</td>
-                <td>@entity.Email</td>
-                <td>@entity.Status</td>
-                    <td><a class="btn" asp-controller="Home" asp-action="UserModify" asp-route-id="@entity.Id">Редактировать</a></td>
-                <td><form method="post" asp-controller="Home" asp-action="UserDelete">
-                    <input type="hidden" value="@entity.Id" name="Id"/>
-                    <input class="btn" type="submit" value="Удалить"/>
-                </form></td>
-            </tr>
+                <tr>
+                    <td>@entity.Id</td>
+                    <td>@entity.Name</td>
+                    <td>@entity.Surname</td>
+                    <td>@entity.Email</td>
+                    <td>@entity.Status</td>
+                        <td><a class="btn" asp-controller="Home" asp-action="UserModify" asp-route-id="@entity.Id">Редактировать</a></td>
+                    <td><form method="post" asp-controller="Home" asp-action="UserDelete">
+                        <input type="hidden" value="@entity.Id" name="Id"/>
+                        <input class="btn" type="submit" value="Удалить"/>
+                    </form></td>
+                </tr>
     }
 </table>

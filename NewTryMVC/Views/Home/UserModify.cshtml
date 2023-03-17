@@ -1,0 +1,37 @@
+﻿@model NewTryMVC.Models.User
+
+<div class="text-center">
+    <h1 class="title">Редактировать данные</h1>
+    <div class="row">
+        <form asp-controller="Home" asp-action="UserModify" method="post">
+            <input type="hidden" asp-for="Id" />
+            <div asp-validation-summary="All"></div>
+
+            <div class="edit-label">
+                <label class="lab" asp-for="Name"></label>
+                <input class="input input-edit" asp-for="Name" />
+                <span asp-validation-for="Name"></span>
+            </div>
+
+            <div class="edit-label">
+                <label class="lab" asp-for="Surname"></label>
+                <input class="input input-edit" asp-for="Surname" />
+                <span asp-validation-for="Surname"></span>
+            </div>
+
+            <div class="edit-label">
+                <label class="lab" asp-for="Email"></label>
+                <input class="input input-edit" asp-for="Email" />
+                <span asp-validation-for="Email"></span>
+            </div>
+
+            <div class="edit-label">
+                <label class="lab" asp-for="Status"></label>
+                <input class="input input-edit" asp-for="Status" />
+                <span asp-validation-for="Status"></span>
+            </div>
+
+            <input class="btn add-btn"  type="submit" value="Изменить" />
+        </form>
+    </div>
+</div>

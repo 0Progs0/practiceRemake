@@ -1,10 +1,86 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
+* {
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+    *, *:before, *:after {
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+:focus, :active {
+    outline: none;
+}
+
+a:focus, a:active {
+    outline: none;
+}
+
+nav, footer, header, aside {
+    display: block;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    font-size: 100%;
+    line-height: 1;
+    font-size: 14px;
+    -ms-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+
+input, button, textarea {
+    font-family: inherit;
+}
+
+    input::-ms-clear {
+        display: none;
+    }
+
+button {
+    cursor: pointer;
+}
+
+    button::-moz-focus-inner {
+        padding: 0;
+        border: 0;
+    }
+
+a, a:visited {
+    text-decoration: none;
+}
+
+    a:hover {
+        text-decoration: none;
+    }
+
+ul li {
+    list-style: none;
+}
+
+img {
+    vertical-align: top;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-size: inherit;
+    font-weight: 400;
+}
+/*--------------------*/
+
+
 
 a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+    color: #fff;
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
 }
 
 /* Provide sufficient contrast against white background */
@@ -19,9 +95,7 @@ a {
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    border-color: #1861ac;
 }
 
 /* Sticky footer styles
@@ -47,8 +121,9 @@ html {
 }
 
 button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
+    color: #fff;
+    font-size: 1rem;
+    line-height: inherit;
 }
 
 /* Sticky footer styles
@@ -62,10 +137,122 @@ body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
 }
+
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+    position: absolute;
+    background-color: rgb(27, 150, 150);
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px; /* Vertically center the text there */
 }
+
+.content {
+    display:flex;
+    justify-content:center;
+    flex-direction:column
+}
+
+.title {
+    width:100%;
+    color:#fff;
+    padding: 20px;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 20px;
+    text-align: center;
+    background-color: rgb(27, 150, 150);
+    border-radius: 8px;
+    margin: 0 0 20px 0;
+}
+
+table {
+    width: 100%;
+    border: none;
+    margin-bottom: 20px;
+    color: #fff;
+    background-color: rgb(27, 150, 150);
+    border-radius: 8px;
+}
+
+tr {
+    padding: 10px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    text-align: center;
+    margin: 0 0 10px 0;
+}
+
+th {
+    width: 20%;
+    padding: 10px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    text-align: center;
+    border-bottom:2px solid #fff;
+}
+
+td {
+    width: 20%;
+    padding: 10px;
+}
+
+.search {
+    margin: 0 0 20px 0;
+    display: inline-flex;
+}
+
+.input {
+    flex: 0 1 70%;
+    color: #fff;
+    background-color: rgb(27, 150, 150);
+    border-radius: 8px 0 0 8px;
+    padding: 6px;
+}
+
+.input-edit {
+    margin: 0 0 5px 0;
+    background-color: rgb(27, 150, 150);
+}
+
+.row {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    border-radius:8px;
+}
+
+.edit-label {
+    background-color: rgb(27, 150, 150);
+    border-bottom:2px solid #fff;
+    padding: 8px;
+}
+
+.lab {
+    color: #fff;
+    padding: 8px;
+    border-right:2px solid #fff;
+}
+.btn {
+    color: #fff;
+    border-radius:0 8px 8px 0;
+    border-left:2px solid #fff;
+    background-color: rgb(27, 150, 150);
+    padding: 8px;
+    flex: 0 1 30%;
+}
+
+.add-btn {
+    width:200px;
+    border:none;
+    color: #fff;
+    border-radius:8px;
+    background-color: rgb(27, 150, 150);
+    margin: 10px 0 15px 0;
+}
+
+    .add-btn:hover {
+        color: #212529;
+    }
