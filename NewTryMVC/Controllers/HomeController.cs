@@ -7,8 +7,8 @@ namespace NewTryMVC.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly UsersRepository usersRepository;
-        public HomeController(UsersRepository usersRepository)
+        private readonly IUsersRepository usersRepository;
+        public HomeController(IUsersRepository usersRepository)
         {
             this.usersRepository = usersRepository;
         }
@@ -55,12 +55,6 @@ namespace NewTryMVC.Controllers
             return View(model);
         }
 
-        //[HttpPost]
-        //public IActionResult UserFind(int FindId)
-        //{
-        //    var model = usersRepository.GetUserById(FindId);
-        //    return View(model);
-        //}
 
         [HttpPost]
         public IActionResult UserFindByName(string name)
