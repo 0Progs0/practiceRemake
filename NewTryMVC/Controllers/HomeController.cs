@@ -55,7 +55,7 @@ namespace NewTryMVC.Controllers
             return View(model);
         }
 
-        [HttpPost]
+        [HttpGet]
         public IActionResult UserFind(int FindId)
         {
             var model = usersRepository.GetUserById(FindId);

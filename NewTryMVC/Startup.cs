@@ -23,7 +23,7 @@ namespace NewTryMVC
         {
             services.AddTransient<UsersRepository>();// Регистрация репозитория
             services.AddControllersWithViews();
-            services.AddDbContext<AppDbContext>(options => options.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=Users;Trusted_Connection=True;MultipleActiveResultSets=true"));//подключение пользовательского контекста
+            services.AddDbContext<AppDbContext>(options => options.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=Users;Trusted_Connection=True;MultipleActiveResultSets=true"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
