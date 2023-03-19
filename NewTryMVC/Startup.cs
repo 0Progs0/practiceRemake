@@ -21,7 +21,7 @@ namespace NewTryMVC
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<UsersRepository>();// Регистрация репозитория
+            services.AddScoped<IUsersRepository, UsersRepository>();
             services.AddControllersWithViews();
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=Users;Trusted_Connection=True;MultipleActiveResultSets=true"));
         }

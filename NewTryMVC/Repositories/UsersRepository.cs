@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace NewTryMVC.Repositories
 {
-    public class UsersRepository
+    public class UsersRepository : IUsersRepository
     {
         private readonly AppDbContext context;
 
