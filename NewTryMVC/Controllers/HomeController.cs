@@ -1,75 +1,115 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using NewTryMVC.Models;
-using NewTryMVC.Repositories;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
+using System.Net.Http;
+using System.Text;
 
 namespace NewTryMVC.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IUsersRepository usersRepository;
-        public HomeController(IUsersRepository usersRepository)
+        Uri address = new Uri("https://localhost:44392/api");
+        HttpClient client;
+
+        public HomeController() 
         {
-            this.usersRepository = usersRepository;
+            client= new HttpClient();
+            client.BaseAddress = address;
+        } 
+
+        public ActionResult Index()
+        {
+
+            List<User> userList = new List<User>();
+            HttpResponseMessage response = client.GetAsync(client.BaseAddress + "/Db").Result;
+            if (response.IsSuccessStatusCode)
+            {
+                string data = response.Content.ReadAsStringAsync().Result;
+                userList = JsonConvert.DeserializeObject<List<User>>(data);
+            }
+            return View(userList);
         }
 
-        public IActionResult Index()
+        [HttpGet]
+        public ActionResult UserFindByName(string name)
         {
-            var model = usersRepository.GetUsers();
-            return View(model);
+            List<User> userList = new List<User>();
+            HttpResponseMessage response = client.GetAsync(client.BaseAddress + "/Db").Result;
+            if (response.IsSuccessStatusCode)
+            {
+                string data = response.Content.ReadAsStringAsync().Result;
+                userList = JsonConvert.DeserializeObject<List<User>>(data);
+                userList = userList.Where(x => x.Name.Contains(name)).ToList();
+            }
+            return View(userList);
+        }
+
+        public ActionResult UserCreate()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+        public ActionResult UserCreate(User user)
+        {
+            string data = JsonConvert.SerializeObject(user);
+            StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
+            HttpResponseMessage response = client.PostAsync(client.BaseAddress + "/Db", content).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
+
+        public  ActionResult UserModify(int id)
+        {
+            List<User> userList = new List<User>();
+            User user = new User();
+            HttpResponseMessage response = client.GetAsync(client.BaseAddress + "/Db").Result;
+            if (response.IsSuccessStatusCode)
+            {
+                string data = response.Content.ReadAsStringAsync().Result;
+                userList = JsonConvert.DeserializeObject<List<User>>(data);
+                user = userList.Single(x => x.Id == id); ;
+            }
+            return View(user);
+        }
+
+
+        [HttpPost]
+        public ActionResult UserModify(User user)
+        {
+            string data = JsonConvert.SerializeObject(user);
+            StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
+            HttpResponseMessage response = client.PutAsync(client.BaseAddress + "/Db/" + user.Id, content).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index");
+            }
+            return View(user);
+        }
+
+        [HttpPost]
+        public ActionResult UserDelete(int id)
+        {
+            List<User> userList = new List<User>();
+            HttpResponseMessage response = client.DeleteAsync(client.BaseAddress + "/Db/" + id).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index");
+            }
+            return View("Index",userList);
         }
 
         
-       
-        public IActionResult UserCreate()
-        {
-                User model = new User();
-                return View(model);
-        }
-
-        [HttpPost]
-        public IActionResult UserCreate(User model)
-        {
-            if (ModelState.IsValid)
-            {
-                usersRepository.CreateUser(model);
-                return RedirectToAction("Index");
-            }
-            return View(model);
-        }
-
-        public IActionResult UserModify(int id)
-        {
-            User model = usersRepository.GetUserById(id);
-            return View(model);
-        }
-
-        [HttpPost]
-        public IActionResult UserModify(User model)
-        {
-            if (ModelState.IsValid)
-            {
-                usersRepository.ModifyUser(model);
-                return RedirectToAction("Index");
-            }
-            return View(model);
-        }
-
-
-        [HttpPost]
-        public IActionResult UserFindByName(string name)
-        {
-            var model = usersRepository.GetUserByName(name);
-            return View(model);
-        }
-
-
-        [HttpPost]
-        public IActionResult UserDelete(int id)
-        {
-            usersRepository.DeleteUser(new User { Id = id });
-            return RedirectToAction("Index");
-        }
 
         public IActionResult Privacy()
         {

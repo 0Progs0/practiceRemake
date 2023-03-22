@@ -1,15 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
-using NewTryMVC.Data;
-using NewTryMVC.Models;
-using System.Linq;
+﻿using System.Linq;
 
-namespace NewTryMVC.Repositories
+namespace NewAPI.Repository
 {
-    public class UsersRepository : IUsersRepository
+    public class UsersRepository
     {
-        private readonly AppDbContext context;
+        private readonly DataBaseContext context;
 
-        public UsersRepository(AppDbContext context)
+        public UsersRepository(DataBaseContext context)
         {
             this.context = context;
         }

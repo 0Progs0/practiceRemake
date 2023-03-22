@@ -1,14 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using DbAPI.Models;
 using Microsoft.EntityFrameworkCore;
-using NewTryMVC.Models;
 
-namespace NewTryMVC.Data
+namespace DbAPI.Data
 {
-    public class AppDbContext : IdentityDbContext<IdentityUser>
+    public class DataBaseContext : DbContext
     {
-
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
+        public DataBaseContext(DbContextOptions options) : base(options) { }
 
         public DbSet<User> Users { get; set; }
 
