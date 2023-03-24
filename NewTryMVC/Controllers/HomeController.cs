@@ -2,52 +2,38 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
-using NewTryMVC.Models;
+using UserModel;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using NewTryMVC.Models;
+using NewTryMVC.Repository;
 
 namespace NewTryMVC.Controllers
 {
     public class HomeController : Controller
     {
-        Uri address = new Uri("https://localhost:44392/api");
-        HttpClient client;
+        IService service;
 
-        public HomeController() 
+
+        public HomeController(IService s) 
         {
-            client= new HttpClient();
-            client.BaseAddress = address;
-        } 
+            service = s;
+        }
 
         public ActionResult Index()
         {
 
-            List<User> userList = new List<User>();
-            HttpResponseMessage response = client.GetAsync(client.BaseAddress + "/Db").Result;
-            if (response.IsSuccessStatusCode)
-            {
-                string data = response.Content.ReadAsStringAsync().Result;
-                userList = JsonConvert.DeserializeObject<List<User>>(data);
-            }
-            return View(userList);
+            return View(service.GetAll());
         }
 
         [HttpGet]
         public ActionResult UserFindByName(string name)
         {
-            List<User> userList = new List<User>();
-            HttpResponseMessage response = client.GetAsync(client.BaseAddress + "/Db").Result;
-            if (response.IsSuccessStatusCode)
-            {
-                string data = response.Content.ReadAsStringAsync().Result;
-                userList = JsonConvert.DeserializeObject<List<User>>(data);
-                userList = userList.Where(x => x.Name.Contains(name)).ToList();
-            }
-            return View(userList);
+            return View(service.GetByName(name));
         }
 
         public ActionResult UserCreate()
@@ -59,9 +45,7 @@ namespace NewTryMVC.Controllers
         [HttpPost]
         public ActionResult UserCreate(User user)
         {
-            string data = JsonConvert.SerializeObject(user);
-            StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
-            HttpResponseMessage response = client.PostAsync(client.BaseAddress + "/Db", content).Result;
+            HttpResponseMessage response = service.AddUser(user);
             if (response.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");
@@ -69,27 +53,16 @@ namespace NewTryMVC.Controllers
             return View();
         }
 
-        public  ActionResult UserModify(int id)
-        {
-            List<User> userList = new List<User>();
-            User user = new User();
-            HttpResponseMessage response = client.GetAsync(client.BaseAddress + "/Db").Result;
-            if (response.IsSuccessStatusCode)
-            {
-                string data = response.Content.ReadAsStringAsync().Result;
-                userList = JsonConvert.DeserializeObject<List<User>>(data);
-                user = userList.Single(x => x.Id == id); ;
-            }
-            return View(user);
+        public  ActionResult UserModify(Guid id)
+        {           
+            return View(service.EditUser(id));
         }
 
 
         [HttpPost]
         public ActionResult UserModify(User user)
         {
-            string data = JsonConvert.SerializeObject(user);
-            StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
-            HttpResponseMessage response = client.PutAsync(client.BaseAddress + "/Db/" + user.Id, content).Result;
+            HttpResponseMessage response = service.EditUserPost(user);
             if (response.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");
@@ -98,15 +71,14 @@ namespace NewTryMVC.Controllers
         }
 
         [HttpPost]
-        public ActionResult UserDelete(int id)
+        public ActionResult UserDelete(Guid id)
         {
-            List<User> userList = new List<User>();
-            HttpResponseMessage response = client.DeleteAsync(client.BaseAddress + "/Db/" + id).Result;
+            HttpResponseMessage response = service.DeleteUser(id);
             if (response.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");
             }
-            return View("Index",userList);
+            return View("Index");
         }
 
         

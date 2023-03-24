@@ -1,5 +1,6 @@
-﻿using DbAPI.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
+using UserModel;
 
 namespace DbAPI.Data
 {
@@ -15,7 +16,7 @@ namespace DbAPI.Data
 
             modelBuilder.Entity<User>().HasData(new User
             {
-                Id = 123123,
+                Id = Guid.NewGuid(),
                 Name = "Ivan",
                 Surname = "Ivanov",
                 Email = "ivanov@mail.ru",

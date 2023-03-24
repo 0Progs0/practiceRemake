@@ -1,8 +1,9 @@
-﻿using DbAPI.Models;
-using DbAPI.Repository;
-using Microsoft.AspNetCore.Mvc;
+﻿using DbAPI.Repository;
+using System;
 using System.Threading.Tasks;
-
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using UserModel;
 
 namespace DbAPI.Controllers
 {
@@ -18,35 +19,35 @@ namespace DbAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> GetAllUsers()
+        public async Task<List<User>> GetAllUsers()
         {
             var model = usersRepository.GetUsers();
-            return Ok(model);
+            return model;
         }
 
         [HttpGet("{name}")]
-        public async Task<ActionResult> GetUserByName(string name)
+        public async Task<List<User>> GetUserByName(string name)
         {
-            var model = usersRepository.GetUserByName(name);
-            return Ok(model);
+            List<User> model = usersRepository.GetUserByName(name);
+            return model;
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> ModifyUser(User user)
+        public async Task<User> ModifyUser(User user)
         {
             usersRepository.ModifyUser(user);
-            return Ok(user);
+            return user;
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(User user)
+        public async Task<User> Create(User user)
         {
             usersRepository.CreateUser(user);
-            return Ok(user);
+            return user;
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(int id)
+        public async Task<ActionResult> Delete(Guid id)
         {
             usersRepository.DeleteUser(new User() { Id = id });
             return Ok();

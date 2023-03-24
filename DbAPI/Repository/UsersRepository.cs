@@ -1,7 +1,9 @@
 ﻿using DbAPI.Data;
-using DbAPI.Models;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using UserModel;
 
 namespace DbAPI.Repository
 {
@@ -14,40 +16,40 @@ namespace DbAPI.Repository
             this.context = context;
         }
 
-        public IQueryable<User> GetUsers()
+        public List<User> GetUsers()
         {
-            return context.Users.OrderBy(x => x.Name);
+            return context.Users.OrderBy(x => x.Name).ToList();
         }
 
-        public User GetUserById(int id)
+        public User GetUserById(Guid id)
         {
             return context.Users.SingleOrDefault(x => x.Id == id);
         }
 
-        public IQueryable<User> GetUserByName(string user_name)
+        public List<User> GetUserByName(string user_name)
         {
-            return context.Users.Where(x => EF.Functions.Like(x.Name, $"%{user_name}%"));
+            return context.Users.Where(x => EF.Functions.Like(x.Name, $"%{user_name}%")).ToList();
         }
 
-        public int SaveUser(User entity)
-        {
-            if (entity.Id == default)
-                context.Entry(entity).State = EntityState.Added;
-            else
-                context.Entry(entity).State = EntityState.Modified;
-            context.SaveChanges();
+        //public Guid SaveUser(User entity)
+        //{
+        //    if (entity.Id == default)
+        //        context.Entry(entity).State = EntityState.Added;
+        //    else
+        //        context.Entry(entity).State = EntityState.Modified;
+        //    context.SaveChanges();
 
-            return entity.Id;
-        }
+        //    return entity.Id;
+        //}
 
-        public int CreateUser(User entity)
+        public Guid CreateUser(User entity)
         {
             context.Entry(entity).State = EntityState.Added;
             context.SaveChanges();
             return entity.Id;
         }
 
-        public int ModifyUser(User entity)
+        public Guid ModifyUser(User entity)
         {
             context.Entry(entity).State = EntityState.Modified;
             context.SaveChanges();

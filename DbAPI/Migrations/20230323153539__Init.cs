@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DbAPI.Migrations
 {
-    public partial class Init : Migration
+    public partial class _Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -10,8 +11,7 @@ namespace DbAPI.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Surname = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -25,7 +25,7 @@ namespace DbAPI.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Email", "Name", "Status", "Surname" },
-                values: new object[] { 123123, "ivanov@mail.ru", "Ivan", "Студент", "Ivanov" });
+                values: new object[] { new Guid("d44ce52e-8faa-4ad7-8ff3-6d6f97947add"), "ivanov@mail.ru", "Ivan", "Студент", "Ivanov" });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

@@ -1,10 +1,10 @@
-﻿@model NewTryMVC.Models.User
+﻿@model UserModel.User
 
 <div class="text-center">
     <h1 class="title">Добавление пользователя</h1>
     <div class="row">
         <form asp-controller="Home" asp-action="UserCreate" method="post">
-            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="Id"/>
             <div asp-validation-summary="All"></div>
 
             <div class="edit-label">
